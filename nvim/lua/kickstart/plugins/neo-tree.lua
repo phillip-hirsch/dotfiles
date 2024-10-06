@@ -19,18 +19,14 @@ return {
       {
         event = 'neo_tree_buffer_enter',
         handler = function()
-          local hl = vim.api.nvim_get_hl_by_name('Cursor', true)
-          hl.blend = 100
-          vim.api.nvim_set_hl(0, 'Cursor', hl)
+          vim.api.nvim_set_hl(0, 'Cursor', { bg = '#00FF00', fg = '#FF0000', blend = 100 })
           vim.opt.guicursor:append 'a:Cursor/lCursor'
         end,
       },
       {
         event = 'neo_tree_buffer_leave',
         handler = function()
-          local hl = vim.api.nvim_get_hl_by_name('Cursor', true)
-          hl.blend = 0
-          vim.api.nvim_set_hl(0, 'Cursor', hl)
+          vim.api.nvim_set_hl(0, 'Cursor', { blend = 0 })
           vim.opt.guicursor:remove 'a:Cursor/lCursor'
         end,
       },
