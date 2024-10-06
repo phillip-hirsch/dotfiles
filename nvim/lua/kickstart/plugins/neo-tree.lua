@@ -8,74 +8,113 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
     'MunifTanjim/nui.nvim',
-    -- 'saifulapm/neotree-file-nesting-config',
+    'saifulapm/neotree-file-nesting-config',
   },
   cmd = 'Neotree',
   keys = {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
-    -- recommanded config for better UI
-    -- hide_root_node = true,
-    -- retain_hidden_root_indent = true,
+    event_handlers = {
+      {
+        event = 'neo_tree_buffer_enter',
+        handler = function()
+          local hl = vim.api.nvim_get_hl_by_name('Cursor', true)
+          hl.blend = 100
+          vim.api.nvim_set_hl(0, 'Cursor', hl)
+          vim.opt.guicursor:append 'a:Cursor/lCursor'
+        end,
+      },
+      {
+        event = 'neo_tree_buffer_leave',
+        handler = function()
+          local hl = vim.api.nvim_get_hl_by_name('Cursor', true)
+          hl.blend = 0
+          vim.api.nvim_set_hl(0, 'Cursor', hl)
+          vim.opt.guicursor:remove 'a:Cursor/lCursor'
+        end,
+      },
+    },
     filesystem = {
-      -- filtered_items = {
-      --   show_hidden_count = false,
-      --   never_show = {
-      --     '.DS_Store',
-      --   },
-      -- },
       window = {
         mappings = {
           ['\\'] = 'close_window',
         },
       },
-    },
-    source_selector = {
-      winbar = true, -- toggle to show selector on winbar
-      statusline = false, -- toggle to show selector on statusline
-      show_scrolled_off_parent_node = false, -- boolean
-      sources = { -- table
-        {
-          source = 'filesystem', -- string
-          display_name = ' 󰉓 Files ', -- string | nil
-        },
-        {
-          source = 'buffers', -- string
-          display_name = ' 󰈚 Buffers ', -- string | nil
-        },
-        {
-          source = 'git_status', -- string
-          display_name = ' 󰊢 Git ', -- string | nil
+      components = {
+        harpoon_index = function(config, node, _)
+          local harpoon_list = require('harpoon'):list()
+          local path = node:get_id()
+          local harpoon_key = vim.uv.cwd()
+
+          for i, item in ipairs(harpoon_list.items) do
+            local value = item.value
+            if string.sub(item.value, 1, 1) ~= '/' then
+              value = harpoon_key .. '/' .. item.value
+            end
+
+            if value == path then
+              vim.print(path)
+              return {
+                text = string.format(' ⥤ %d', i), -- <-- Add your favorite harpoon like arrow here
+                highlight = config.highlight or 'NeoTreeDirectoryIcon',
+              }
+            end
+          end
+          return {}
+        end,
+      },
+      renderers = {
+        file = {
+          { 'icon' },
+          { 'name', use_git_status_colors = true },
+          { 'harpoon_index' }, --> This is what actually adds the component in where you want it
+          { 'diagnostics' },
+          { 'git_status', highlight = 'NeoTreeDimText' },
         },
       },
-      content_layout = 'start', -- string
-      tabs_layout = 'equal', -- string
-      truncation_character = '…', -- string
+    },
+    source_selector = {
+      winbar = true,
+      statusline = false,
+      show_scrolled_off_parent_node = false,
+      sources = {
+        {
+          source = 'filesystem',
+          display_name = ' 󰉓 Files ',
+        },
+        {
+          source = 'buffers',
+          display_name = ' 󰈚 Buffers ',
+        },
+        {
+          source = 'git_status',
+          display_name = ' 󰊢 Git ',
+        },
+      },
+      content_layout = 'start',
+      tabs_layout = 'equal',
+      truncation_character = '…',
       tabs_min_width = nil, -- int | nil
       tabs_max_width = nil, -- int | nil
       padding = 0, -- int | { left: int, right: int }
       separator = { left = '▏', right = '▕' }, -- string | { left: string, right: string, override: string | nil }
       separator_active = nil, -- string | { left: string, right: string, override: string | nil } | nil
-      show_separator_on_edge = false, -- boolean
-      highlight_tab = 'NeoTreeTabInactive', -- string
-      highlight_tab_active = 'NeoTreeTabActive', -- string
-      highlight_background = 'NeoTreeTabInactive', -- string
-      highlight_separator = 'NeoTreeTabSeparatorInactive', -- string
-      highlight_separator_active = 'NeoTreeTabSeparatorActive', -- string
+      show_separator_on_edge = false,
+      highlight_tab = 'NeoTreeTabInactive',
+      highlight_tab_active = 'NeoTreeTabActive',
+      highlight_background = 'NeoTreeTabInactive',
+      highlight_separator = 'NeoTreeTabSeparatorInactive',
+      highlight_separator_active = 'NeoTreeTabSeparatorActive',
     },
 
-    -- default_component_configs = {
-    --   indent = {
-    --     with_expanders = true,
-    --     expander_collapsed = '',
-    --     expander_expanded = '',
-    --   },
-    -- },
+    default_component_configs = {
+      indent = {
+        with_markers = false,
+        with_expanders = true,
+        expander_collapsed = '',
+        expander_expanded = '',
+      },
+    },
   },
-  -- config = function(_, opts)
-  --   -- Adding rules from plugin
-  --   opts.nesting_rules = require('neotree-file-nesting-config').nesting_rules
-  --   require('neo-tree').setup(opts)
-  -- end,
 }

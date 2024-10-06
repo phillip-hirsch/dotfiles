@@ -8,8 +8,13 @@ return {
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'onedark'
 
+      local color = require 'onedarkpro.helpers'
+
+      local colors = color.get_colors()
+
       -- You can configure highlights by doing something like:
       -- vim.cmd.hi 'Comment gui=none'
+      vim.api.nvim_set_hl(0, 'NeoTreeCursorLine', { bg = colors.gray })
     end,
   },
 }
