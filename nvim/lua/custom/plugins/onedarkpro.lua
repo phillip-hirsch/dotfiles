@@ -1,7 +1,7 @@
 return {
   {
     'olimorris/onedarkpro.nvim',
-    priority = 1000,
+    -- priority = 1000,
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
