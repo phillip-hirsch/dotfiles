@@ -33,7 +33,7 @@ return {
     require('lualine').setup {
       -- opt = {
       options = {
-        theme = 'edge',
+        theme = 'catppuccin',
         component_separators = '',
         section_separators = { left = '', right = '' },
       },
