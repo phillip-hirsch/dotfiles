@@ -1,0 +1,12 @@
+font-family = MesloLGS NF
+font-size = 13
+link-url = true
+
+theme = catppuccin-mocha
+
+macos-option-as-alt = left
+mouse-hide-while-typing = true
+
+window-decoration = true
+window-padding-color = extend
+resize-overlay = always
