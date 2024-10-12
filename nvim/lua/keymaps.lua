@@ -1,18 +1,6 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
-
--- Move to previous buffer
-map('n', '<A-p>', '<Cmd>:bprev<CR>', opts)
-
--- Move to next buffer
-map('n', '<A-n>', '<Cmd>:bnext<CR>', opts)
-
--- Close buffer
-map('n', '<A-c>', '<Cmd>:bd<CR>', opts)
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -23,6 +11,12 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Git Worktree
 vim.keymap.set('n', '<leader>gs', "<Cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", { desc = '[S]witch Git Worktree' })
 vim.keymap.set('n', '<leader>gc', "<Cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", { desc = '[C]reate Git Worktree' })
+
+-- Center the cursor
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up' })
+vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Next result' })
+vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Previous result' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which

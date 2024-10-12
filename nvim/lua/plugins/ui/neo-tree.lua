@@ -8,29 +8,12 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
     'MunifTanjim/nui.nvim',
-    'saifulapm/neotree-file-nesting-config',
   },
   cmd = 'Neotree',
   keys = {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
-    event_handlers = {
-      {
-        event = 'neo_tree_buffer_enter',
-        handler = function()
-          vim.api.nvim_set_hl(0, 'Cursor', { bg = '#00FF00', fg = '#FF0000', blend = 100 })
-          vim.opt.guicursor:append 'a:Cursor/lCursor'
-        end,
-      },
-      {
-        event = 'neo_tree_buffer_leave',
-        handler = function()
-          vim.api.nvim_set_hl(0, 'Cursor', { blend = 0 })
-          vim.opt.guicursor:remove 'a:Cursor/lCursor'
-        end,
-      },
-    },
     filesystem = {
       window = {
         mappings = {
@@ -64,7 +47,7 @@ return {
         file = {
           { 'icon' },
           { 'name', use_git_status_colors = true },
-          { 'harpoon_index' }, --> This is what actually adds the component in where you want it
+          { 'harpoon_index' },
           { 'diagnostics' },
           { 'git_status', highlight = 'NeoTreeDimText' },
         },
@@ -74,6 +57,8 @@ return {
       winbar = true,
       statusline = false,
       show_scrolled_off_parent_node = false,
+      content_layout = 'center',
+      tabs_layout = 'equal',
       sources = {
         {
           source = 'filesystem',
@@ -88,22 +73,7 @@ return {
           display_name = ' 󰊢 Git ',
         },
       },
-      content_layout = 'start',
-      tabs_layout = 'equal',
-      truncation_character = '…',
-      tabs_min_width = nil, -- int | nil
-      tabs_max_width = nil, -- int | nil
-      padding = 0, -- int | { left: int, right: int }
-      separator = { left = '▏', right = '▕' }, -- string | { left: string, right: string, override: string | nil }
-      separator_active = nil, -- string | { left: string, right: string, override: string | nil } | nil
-      show_separator_on_edge = false,
-      highlight_tab = 'NeoTreeTabInactive',
-      highlight_tab_active = 'NeoTreeTabActive',
-      highlight_background = 'NeoTreeTabInactive',
-      highlight_separator = 'NeoTreeTabSeparatorInactive',
-      highlight_separator_active = 'NeoTreeTabSeparatorActive',
     },
-
     default_component_configs = {
       indent = {
         with_markers = false,

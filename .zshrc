@@ -77,13 +77,15 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-syntax-highlighting zsh-autosuggestions brew fzf nvm pyenv bun deno yarn iterm2)
+plugins=(zsh-syntax-highlighting zsh-autosuggestions brew fzf nvm pyenv bun deno yarn)
 
-zstyle :omz:plugins:iterm2 shell-integration yes
 zstyle ':omz:plugins:yarn' berry yes
 
 # Homebrew zsh completions
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+# Ghostty zsh completions
+FPATH="$HOME/ZshCompletions:${FPATH}"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,7 +108,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # fi
 
 # EDITOR
-export VISUAL="code"
+export VISUAL="nvim"
 export EDITOR="$VISUAL"
 # export EDITOR="code -w"
 
@@ -128,6 +130,8 @@ export WEZTERM_CONFIG_FILE="$XDG_CONFIG_HOME/wezterm/wezterm.lua"
 # Aliases
 alias zshconfig="code ~/.zshrc"
 alias neovide="neovide --frame transparent"
+alias neofetch='neofetch --source /Users/phillip/.config/neofetch/ghost_ascii.txt'
+alias vim="nvim"
 
 # History
 HISTSIZE=5000
