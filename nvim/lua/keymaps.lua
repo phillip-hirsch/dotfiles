@@ -9,8 +9,12 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Git Worktree
-vim.keymap.set('n', '<leader>gs', "<Cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", { desc = '[S]witch Git Worktree' })
-vim.keymap.set('n', '<leader>gc', "<Cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", { desc = '[C]reate Git Worktree' })
+vim.keymap.set('n', '<leader>gs', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", { desc = '[S]witch Git Worktree' })
+vim.keymap.set('n', '<leader>gc', "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", { desc = '[C]reate Git Worktree' })
+
+--  Oil
+vim.keymap.set('n', '\\', '<cmd>Oil<CR>')
+-- vim.keymap.set('n', '\\', "<cmd>lua require('oil').actions.close()<CR>")
 
 -- Center the cursor
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down' })
@@ -40,6 +44,9 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Toggle lsp_lines
+vim.keymap.set('n', '<Leader>l', "<Cmd>lua require('lsp_lines').toggle()<CR>", { desc = 'Toggle [l]sp_lines' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

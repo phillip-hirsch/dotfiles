@@ -7,6 +7,20 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Disable virtual_text since it's redundant due to lsp_lines.
+vim.diagnostic.config {
+  virtual_text = false,
+  severity_sort = true,
+  -- float = {
+  --   border = 'rounded',
+  --   source = true,
+  -- },
+}
+
+-- Rounded borders surround lsp windows
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+
 -- [[ Setting options ]]
 require 'options'
 

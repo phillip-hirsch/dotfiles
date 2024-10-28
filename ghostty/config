@@ -1,12 +1,33 @@
-font-family = MesloLGS NF
+# font-family = MesloLGS NF
+# font-family = Maple Mono
+font-family = Victor Mono
 font-size = 13
 link-url = true
 
 theme = catppuccin-mocha
 
-macos-option-as-alt = left
-mouse-hide-while-typing = true
+# custom-shader = ./gradient.glsl
+# custom-shader = ./bloom.glsl
+# custom-shader = ./crt.glsl
+# custom-shader = ./dancing-lights.glsl
+# custom-shader = ./snow.glsl
+# custom-shader = ./transparent-snow.glsl
+# custom-shader = ./starfield.glsl
+# custom-shader = ./starfield-colors.glsl
 
-window-decoration = true
-window-padding-color = extend
-resize-overlay = always
+macos-option-as-alt = true
+
+# The following command checks if tmux is installed.
+# If tmux is installed, it automatically attaches to an existing tmux session.
+# If no tmux session exists, a new one is created.
+# If tmux is not installed, it simply starts zsh without tmux.
+#
+# For this to work properly, you need to make sure that your shell is configured
+# for homebrew, so you should have this line:
+# eval "$(/opt/homebrew/bin/brew shellenv)"
+# In your ~/.zprofile file
+# If you don't have that line, or if the file doesn't exist, run this:
+# echo '' >>~/.zprofile && echo '# Configure shell for brew' >>~/.zprofile && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile && eval "$(/opt/homebrew/bin/brew shellenv)"
+#
+# This assumes you installed tmux through brew if using macos
+# command = zsh --login -c "if command -v tmux >/dev/null 2>&1; then tmux attach || tmux; else zsh; fi"

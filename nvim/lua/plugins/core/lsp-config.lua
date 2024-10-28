@@ -147,6 +147,21 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
+
+          vim.api.nvim_create_autocmd('CursorHold', {
+            buffer = event.buf,
+            callback = function()
+              local opts = {
+                focusable = false,
+                close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+                border = 'rounded',
+                source = 'always',
+                prefix = ' ',
+                scope = 'cursor',
+              }
+              vim.diagnostic.open_float(nil, opts)
+            end,
+          })
         end,
       })
 

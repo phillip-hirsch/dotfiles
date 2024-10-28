@@ -7,25 +7,25 @@ return {
       local lint = require 'lint'
 
       lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
+        -- markdown = { 'markdownlint' },
         javascript = { 'eslint_d' },
         typescript = { 'eslint_d' },
         javascriptreact = { 'eslint_d' },
         typescriptreact = { 'eslint_d' },
       }
 
-      local eslint = lint.linters.eslint_d
-
-      eslint.args = {
-        '--no-warn-ignored',
-        '--format',
-        'json',
-        '--stdin',
-        '--stdin-filename',
-        function()
-          return vim.api.nvim_buf_get_name(0)
-        end,
-      }
+      -- local eslint = lint.linters.eslint_d
+      --
+      -- eslint.args = {
+      --   '--ignore',
+      --   '--format',
+      --   'json',
+      --   '--stdin',
+      --   '--stdin-filename',
+      --   function()
+      --     return vim.api.nvim_buf_get_name(0)
+      --   end,
+      -- }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
       -- instead set linters_by_ft like this:

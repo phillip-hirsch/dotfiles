@@ -72,6 +72,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+#####################################################################
+# Plugins and completions
+#####################################################################
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -79,7 +83,11 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(zsh-syntax-highlighting zsh-autosuggestions brew fzf nvm pyenv bun deno yarn)
 
+# Necessary for yarn plugin
 zstyle ':omz:plugins:yarn' berry yes
+
+# Lazy loading nvm
+zstyle 'omz:plugins:nvm' lazy yes
 
 # Homebrew zsh completions
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -89,31 +97,27 @@ FPATH="$HOME/ZshCompletions:${FPATH}"
 
 source $ZSH/oh-my-zsh.sh
 
+#####################################################################
 # User configuration
+#####################################################################
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Show extra diagnostics on error
+GITSTATUS_LOG_LEVEL=DEBUG
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# Colored man pages with bat
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# fzf
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--color=selected-bg:#45475a \
+--multi"
 
 # EDITOR
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
-# export EDITOR="code -w"
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export WEZTERM_CONFIG_FILE="$XDG_CONFIG_HOME/wezterm/wezterm.lua"
@@ -123,12 +127,9 @@ export WEZTERM_CONFIG_FILE="$XDG_CONFIG_HOME/wezterm/wezterm.lua"
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
 # Aliases
-alias zshconfig="code ~/.zshrc"
+alias zshconfig="nvim ~/.zshrc"
+alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias neovide="neovide --frame transparent"
 alias neofetch='neofetch --source /Users/phillip/.config/neofetch/ghost_ascii.txt'
 alias vim="nvim"

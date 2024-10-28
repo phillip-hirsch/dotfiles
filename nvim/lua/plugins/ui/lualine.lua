@@ -1,37 +1,20 @@
--- local colors = {
---   blue = '#80a0ff',
---   cyan = '#79dac8',
---   black = '#080808',
---   white = '#c6c6c6',
---   red = '#ff5189',
---   violet = '#d183e8',
---   grey = '#303030',
--- }
---
--- local bubbles_theme = {
---   normal = {
---     a = { fg = colors.black, bg = colors.violet },
---     b = { fg = colors.white, bg = colors.grey },
---     c = { fg = colors.white },
---   },
---
---   insert = { a = { fg = colors.black, bg = colors.blue } },
---   visual = { a = { fg = colors.black, bg = colors.cyan } },
---   replace = { a = { fg = colors.black, bg = colors.red } },
---
---   inactive = {
---     a = { fg = colors.white, bg = colors.black },
---     b = { fg = colors.white, bg = colors.black },
---     c = { fg = colors.white },
---   },
--- }
-
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
+    local trouble = require 'trouble'
+    local symbols = trouble.statusline {
+      mode = 'lsp_document_symbols',
+      groups = {},
+      title = false,
+      filter = { range = true },
+      format = '{kind_icon}{symbol.name:Normal}',
+      -- The following line is needed to fix the background color
+      -- Set it to the lualine section you want to use
+      hl_group = 'lualine_c_normal',
+    }
+
     require('lualine').setup {
-      -- opt = {
       options = {
         theme = 'catppuccin',
         component_separators = '',
@@ -41,7 +24,10 @@ return {
         lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
         lualine_b = { 'filename', 'branch' },
         lualine_c = {
-          '%=', --[[ add your center compoentnts here in place of this comment ]]
+          {
+            symbols.get,
+            cond = symbols.has,
+          },
         },
         lualine_x = {},
         lualine_y = { 'filetype', 'progress' },
@@ -58,8 +44,7 @@ return {
         lualine_z = { 'location' },
       },
       tabline = {},
-      extensions = { 'lazy', 'mason', 'neo-tree', 'nvim-dap-ui' },
-      -- },
+      extensions = { 'lazy', 'mason', 'nvim-dap-ui', 'oil', 'trouble' },
     }
   end,
 }

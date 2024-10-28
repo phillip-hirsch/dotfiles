@@ -10,7 +10,7 @@
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  { import = 'plugins.essentials' },
+  { import = 'plugins.core' },
   { import = 'plugins.git-plugins' },
   { import = 'plugins.themes' },
   { import = 'plugins.ui' },
