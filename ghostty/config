@@ -2,6 +2,8 @@
 # font-family = Maple Mono
 font-family = Victor Mono
 font-size = 13
+font-thicken = true
+
 link-url = true
 
 theme = catppuccin-mocha

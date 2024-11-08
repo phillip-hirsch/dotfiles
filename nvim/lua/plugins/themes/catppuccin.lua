@@ -45,15 +45,53 @@ return {
         custom_highlights = {},
         default_integrations = true,
         integrations = {
+          barbecue = {
+            dim_dirname = true, -- directory name is dimmed by default
+            bold_basename = true,
+            dim_context = false,
+            alt_background = false,
+          },
           cmp = true,
+          colorful_winsep = {
+            enabled = true,
+            color = 'teal',
+          },
+          -- dap = true,
+          -- dap_ui = true,
           gitsigns = true,
           harpoon = true,
-          neotree = true,
-          treesitter = true,
+          indent_blankline = {
+            enabled = true,
+            scope_color = 'text', -- catppuccin color (eg. `lavender`) Default: text
+            colored_indent_levels = false,
+          },
+          lsp_trouble = true,
+          mason = true,
           mini = {
             enabled = true,
             indentscope_color = '',
           },
+          native_lsp = {
+            enabled = true,
+            virtual_text = {
+              errors = { 'italic' },
+              hints = { 'italic' },
+              warnings = { 'italic' },
+              information = { 'italic' },
+              ok = { 'italic' },
+            },
+            underlines = {
+              errors = { 'underline' },
+              hints = { 'underline' },
+              warnings = { 'underline' },
+              information = { 'underline' },
+              ok = { 'underline' },
+            },
+            inlay_hints = {
+              background = true,
+            },
+          },
+          treesitter = true,
           which_key = true,
           -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
         },

@@ -107,6 +107,64 @@ GITSTATUS_LOG_LEVEL=DEBUG
 # Colored man pages with bat
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+# Ghostty +show-congfig cli tool command output with bat
+function ghostty-config() {
+    # Set path to ghostty executable
+    local ghostty_bin="/Applications/Ghostty.app/Contents/MacOS/ghostty"
+    local cmd=("$ghostty_bin" "+show-config")
+    local filter=""
+    local show_help=0
+
+    # Parse options
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --default|--changes-only|--docs)
+                cmd+=("$1")
+                shift
+                ;;
+            --help|-h)
+                show_help=1
+                shift
+                ;;
+            *)
+                # If not a flag, use as filter
+                filter="$1"
+                shift
+                ;;
+        esac
+    done
+
+    # Show help
+    if [ $show_help -eq 1 ]; then
+        echo ""
+        echo "Usage: ghostty-config [options] [filter]"
+        echo ""
+        echo "Options:"
+        echo "  * --default: Show the default configuration instead of loading
+            the user configuration."
+        echo ""
+        echo "  * --changes-only: Only show the options that have been changed
+            from the default. This has no effect if '--default' is specified."
+        echo ""
+        echo "  * --docs: Print the documentation above each option as a comment,
+            This is very noisy but is very useful to learn about available
+            options, especially paired with '--default'."
+        echo ""
+        echo "  * --help, -h: Show this help"
+        echo ""
+        echo "Arguments:"
+        echo "  * filter: Optional grep pattern to filter config"
+        return
+    fi
+
+    # Execute command with optional filter
+    if [ -n "$filter" ]; then
+        "${cmd[@]}" | grep -i "$filter" | bat --language="Ghostty Config"
+    else
+        "${cmd[@]}" | bat --language="Ghostty Config"
+    fi
+}
+
 # fzf
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
