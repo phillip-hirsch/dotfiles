@@ -11,7 +11,7 @@
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   { import = 'plugins.core' },
-  { import = 'plugins.git-plugins' },
+  { import = 'plugins.git' },
   { import = 'plugins.themes' },
   { import = 'plugins.ui' },
   { import = 'plugins.utilities' },
