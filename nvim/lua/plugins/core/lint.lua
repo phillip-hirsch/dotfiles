@@ -7,11 +7,12 @@ return {
       local lint = require 'lint'
 
       lint.linters_by_ft = {
+        python = { 'ruff' },
         -- markdown = { 'markdownlint' },
-        javascript = { 'eslint_d' },
-        typescript = { 'eslint_d' },
-        javascriptreact = { 'eslint_d' },
-        typescriptreact = { 'eslint_d' },
+        --   javascript = { 'eslint_d' },
+        --   typescript = { 'eslint_d' },
+        --   javascriptreact = { 'eslint_d' },
+        --   typescriptreact = { 'eslint_d' },
       }
 
       -- local eslint = lint.linters.eslint_d
@@ -52,7 +53,7 @@ return {
       -- lint.linters_by_ft['dockerfile'] = nil
       -- lint.linters_by_ft['inko'] = nil
       -- lint.linters_by_ft['janet'] = nil
-      -- lint.linters_by_ft['json'] = nil
+      lint.linters_by_ft['json'] = nil
       -- lint.linters_by_ft['markdown'] = nil
       -- lint.linters_by_ft['rst'] = nil
       -- lint.linters_by_ft['ruby'] = nil
@@ -66,7 +67,12 @@ return {
       vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
         group = lint_augroup,
         callback = function()
-          lint.try_lint()
+          -- Only run the linter in buffers that you can modify in order to
+          -- avoid superfluous noise, notably within the handy LSP pop-ups that
+          -- describe the hovered symbol using Markdown.
+          if vim.opt_local.modifiable:get() then
+            lint.try_lint()
+          end
         end,
       })
     end,

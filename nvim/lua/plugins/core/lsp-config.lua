@@ -165,6 +165,16 @@ return {
         end,
       })
 
+      -- Change diagnostic symbols in the sign column (gutter)
+      if vim.g.have_nerd_font then
+        local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
+        local diagnostic_signs = {}
+        for type, icon in pairs(signs) do
+          diagnostic_signs[vim.diagnostic.severity[type]] = icon
+        end
+        vim.diagnostic.config { signs = { text = diagnostic_signs } }
+      end
+
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -194,7 +204,10 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
-
+        cssls = {},
+        eslint = {},
+        html = {},
+        jsonls = {},
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -209,6 +222,83 @@ return {
             },
           },
         },
+        tailwindcss = {
+          -- cmd = {...},
+          filetypes = {
+            -- 'aspnetcorerazor',
+            -- 'astro',
+            -- 'astro-markdown',
+            -- 'blade',
+            -- 'clojure',
+            -- 'django-html',
+            -- 'htmldjango',
+            -- 'edge',
+            -- 'eelixir',
+            -- 'elixir',
+            -- 'ejs',
+            -- 'erb',
+            -- 'eruby',
+            -- 'gohtml',
+            -- 'gohtmltmpl',
+            -- 'haml',
+            -- 'handlebars',
+            -- 'hbs',
+            'html',
+            -- 'htmlangular',
+            -- 'html-eex',
+            -- 'heex',
+            -- 'jade',
+            -- 'leaf',
+            -- 'liquid',
+            -- 'markdown',
+            -- 'mdx',
+            -- 'mustache',
+            -- 'njk',
+            -- 'nunjucks',
+            -- 'php',
+            -- 'razor',
+            -- 'slim',
+            -- 'twig',
+            -- 'css',
+            'less',
+            'postcss',
+            'sass',
+            'scss',
+            'stylus',
+            -- 'sugarss',
+            'javascript',
+            'javascriptreact',
+            -- 'reason',
+            -- 'rescript',
+            'typescript',
+            'typescriptreact',
+            -- 'vue',
+            -- 'svelte',
+            -- 'templ',
+          },
+          -- capabilities = {},
+          -- settings = {
+          --   tailwindCSS = {
+          --     classAttributes = { 'class', 'className', 'class:list', 'classList', 'ngClass' },
+          --     includeLanguages = {
+          --       eelixir = 'html-eex',
+          --       eruby = 'erb',
+          --       htmlangular = 'html',
+          --       templ = 'html',
+          --     },
+          --     lint = {
+          --       cssConflict = 'warning',
+          --       invalidApply = 'error',
+          --       invalidConfigPath = 'error',
+          --       invalidScreen = 'error',
+          --       invalidTailwindDirective = 'error',
+          --       invalidVariant = 'error',
+          --       recommendedVariantOrder = 'warning',
+          --     },
+          --     validate = true,
+          --   },
+          -- },
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -217,7 +307,16 @@ return {
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      require('mason').setup()
+      require('mason').setup {
+        ui = {
+          border = 'rounded',
+          icons = {
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗',
+          },
+        },
+      }
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
