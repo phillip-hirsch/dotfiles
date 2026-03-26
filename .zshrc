@@ -5,97 +5,44 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
 #####################################################################
 # Plugins and completions
 #####################################################################
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-syntax-highlighting zsh-autosuggestions brew fzf nvm pyenv bun deno yarn)
+# Show file contents in fzf-tab preview
+# zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+# export LESSOPEN='|~/.lessfilter %s'
 
-# Necessary for yarn plugin
-zstyle ':omz:plugins:yarn' berry yes
+# Show git in fzf-tab preview
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
+	'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
+	'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
+	'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+	'case "$group" in
+	"commit tag") git show --color=always $word ;;
+	*) git show --color=always $word | delta ;;
+	esac'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+	'case "$group" in
+	"modified file") git diff $word | delta ;;
+	"recent commit object name") git show --color=always $word | delta ;;
+	*) git log --color=always $word ;;
+	esac'
 
-# Lazy loading nvm
-zstyle 'omz:plugins:nvm' lazy yes
+# Show Homebrew in fzf-tab preview
+zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
 
 # Homebrew zsh completions
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # Ghostty zsh completions
-FPATH="$HOME/ZshCompletions:${FPATH}"
+FPATH="/Applications/Ghostty.app/Contents/Resources/zsh/site-functions:${FPATH}"
 
-source $ZSH/oh-my-zsh.sh
+# Zsh-Syntax-Highlighting Highlighters Directory
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
 
 #####################################################################
 # User configuration
@@ -107,63 +54,9 @@ GITSTATUS_LOG_LEVEL=DEBUG
 # Colored man pages with bat
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
-# Ghostty +show-congfig cli tool command output with bat
-function ghostty-config() {
-    # Set path to ghostty executable
-    local ghostty_bin="/Applications/Ghostty.app/Contents/MacOS/ghostty"
-    local cmd=("$ghostty_bin" "+show-config")
-    local filter=""
-    local show_help=0
-
-    # Parse options
-    while [[ $# -gt 0 ]]; do
-        case "$1" in
-            --default|--changes-only|--docs)
-                cmd+=("$1")
-                shift
-                ;;
-            --help|-h)
-                show_help=1
-                shift
-                ;;
-            *)
-                # If not a flag, use as filter
-                filter="$1"
-                shift
-                ;;
-        esac
-    done
-
-    # Show help
-    if [ $show_help -eq 1 ]; then
-        echo ""
-        echo "Usage: ghostty-config [options] [filter]"
-        echo ""
-        echo "Options:"
-        echo "  * --default: Show the default configuration instead of loading
-            the user configuration."
-        echo ""
-        echo "  * --changes-only: Only show the options that have been changed
-            from the default. This has no effect if '--default' is specified."
-        echo ""
-        echo "  * --docs: Print the documentation above each option as a comment,
-            This is very noisy but is very useful to learn about available
-            options, especially paired with '--default'."
-        echo ""
-        echo "  * --help, -h: Show this help"
-        echo ""
-        echo "Arguments:"
-        echo "  * filter: Optional grep pattern to filter config"
-        return
-    fi
-
-    # Execute command with optional filter
-    if [ -n "$filter" ]; then
-        "${cmd[@]}" | grep -i "$filter" | bat --language="Ghostty Config"
-    else
-        "${cmd[@]}" | bat --language="Ghostty Config"
-    fi
-}
+# PostgresSQL 17
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+# export PGDATA="/opt/homebrew/var/postgresql@17"
 
 # fzf
 export FZF_DEFAULT_OPTS=" \
@@ -179,6 +72,70 @@ export EDITOR="$VISUAL"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export WEZTERM_CONFIG_FILE="$XDG_CONFIG_HOME/wezterm/wezterm.lua"
+export EZA_CONFIG_DIR="$XDG_CONFIG_HOME/eza"
+# export TMUX_PLUGIN_MANAGER_PATH=$XDG_CONFIG_HOME/tmux/plugins/tpm
+# export TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
+
+# Created by `pipx` on 2024-12-17 06:25:11
+export PATH="$PATH:/Users/phillip/.local/bin"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
+
+# Jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# Rustup
+export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+
+# Load NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Mise (Ruby - Ruby On Rails)
+eval "$(/Users/phillip/.local/bin/mise activate zsh)"
+
+# fzf-tab
+autoload -U compinit; compinit
+source ~/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+# Zsh-Autosuggestions
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Zsh-Syntax-Highlighting
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Changing/making/removing directory
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_MINUS
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -186,24 +143,38 @@ export WEZTERM_CONFIG_FILE="$XDG_CONFIG_HOME/wezterm/wezterm.lua"
 # For a full list of active aliases, run `alias`.
 #
 # Aliases
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+alias -- -='cd -'
+alias lsa='ls -lah'
+alias l='ls -lah'
+alias ll='ls -lh'
+alias la='ls -lAh'
 alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias neovide="neovide --frame transparent"
-alias neofetch='neofetch --source /Users/phillip/.config/neofetch/ghost_ascii.txt'
-alias vim="nvim"
+alias neofetch="neofetch --source /Users/phillip/.config/neofetch/ghost_ascii.txt"
 
 # History
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search # Up
+bindkey "^[[B" down-line-or-beginning-search # Down
 
+# Powerlevel10k
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
