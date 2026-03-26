@@ -1,0 +1,150 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "edit_predictions": {
+    "provider": "zed"
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "vim_mode": false,
+  "base_keymap": "VSCode",
+  "theme": "Catppuccin Macchiato",
+  "icon_theme": "Catppuccin Macchiato",
+  "telemetry": {
+    "metrics": false,
+    "diagnostics": true
+  },
+  "buffer_font_family": "Maple Mono NF",
+  "ui_font_size": 16,
+  "buffer_font_size": 13,
+  "tab_size": 2,
+  "formatter": "language_server",
+  "indent_guides": {
+    "enabled": true,
+    "coloring": "indent_aware",
+    "background_coloring": "indent_aware"
+  },
+  "languages": {
+    "JavaScript": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": true,
+        "arrowParens": "always",
+        "bracketSpacing": true,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "printWidth": 80,
+        "jsxSingleQuote": true,
+        "semi": false,
+        "useTabs": false,
+        "tabWidth": 2
+      }
+    },
+    "TypeScript": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": true,
+        "arrowParens": "always",
+        "bracketSpacing": true,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "printWidth": 80,
+        "jsxSingleQuote": true,
+        "semi": false,
+        "useTabs": false,
+        "tabWidth": 2
+      }
+    },
+    "TSX": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": true,
+        "arrowParens": "always",
+        "bracketSpacing": true,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "printWidth": 80,
+        "jsxSingleQuote": true,
+        "semi": false,
+        "useTabs": false,
+        "tabWidth": 2
+      }
+    },
+    "Python": {
+      "inlay_hints": {
+        "enabled": true
+      },
+      "language_servers": [
+        "ruff"
+      ],
+      "tab_size": 4,
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "code_action": "source.organizeImports.ruff"
+        },
+        {
+          "code_action": "source.fixAll.ruff"
+        },
+        {
+          "language_server": {
+            "name": "ruff"
+          }
+        }
+      ]
+    }
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+      "show_commit_summary": true
+    }
+  },
+  "terminal": {
+    "font_family": "Maple Mono NF",
+    "font_size": 13
+  }
+}

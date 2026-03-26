@@ -1,23 +1,36 @@
-# font-family = MesloLGS NF
-# font-family = Maple Mono
-font-family = Victor Mono
+# font-family = Victor Mono
+font-family = Maple Mono NF
 font-size = 13
 font-thicken = true
 
 link-url = true
 
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
+# custom-shader = ../../Developer/ghostty-shaders/animated-gradient-shader.glsl
+# custom-shader = ../../Developer/ghostty-shaders/bettercrt.glsl
+# custom-shader = ../../Developer/ghostty-shaders/bloom.glsl
+# custom-shader = ./center-gradient.glsl
+# custom-shader = ../../Developer/ghostty-shaders/crt.glsl
+# custom-shader = ../../Developer/ghostty-shaders/cubes.glsl
+# custom-shader = ../../Developer/ghostty-shaders/dancing-lights.glsl
+# custom-shader = ../../Developer/ghostty-shaders/dither.glsl
+# custom-shader = ../../Developer/ghostty-shaders/drunkard.glsl
 # custom-shader = ./gradient.glsl
-# custom-shader = ./bloom.glsl
-# custom-shader = ./crt.glsl
-# custom-shader = ./dancing-lights.glsl
-# custom-shader = ./snow.glsl
+# custom-shader = ../../Developer/ghostty-shaders/just-snow.glsl
+# custom-shader = ../../Developer/ghostty-shaders/negative.glsl
+# custom-shader = ../../Developer/ghostty-shaders/retro-terminal.glsl
+# custom-shader = ../../Developer/ghostty-shaders/smoke-and-ghost.glsl
+# custom-shader = ../../Developer/ghostty-shaders/starfield.glsl
+# custom-shader = ../../Developer/ghostty-shaders/starfield-colors.glsl
+# custom-shader = ../../Developer/ghostty-shaders/tft.glsl
 # custom-shader = ./transparent-snow.glsl
-# custom-shader = ./starfield.glsl
-# custom-shader = ./starfield-colors.glsl
 
 macos-option-as-alt = true
+
+auto-update = download
+
+notify-on-command-finish = unfocused
 
 # The following command checks if tmux is installed.
 # If tmux is installed, it automatically attaches to an existing tmux session.
@@ -33,3 +46,4 @@ macos-option-as-alt = true
 #
 # This assumes you installed tmux through brew if using macos
 # command = zsh --login -c "if command -v tmux >/dev/null 2>&1; then tmux attach || tmux; else zsh; fi"
+keybind = shift+enter=text:\x1b\r

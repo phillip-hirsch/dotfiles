@@ -7,27 +7,172 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "assistant": {
+  "context_servers": {
+    "mcp-server-context7": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "context7_api_key": "ctx7sk-31f8f5e5-aba0-4998-b188-66d70922ec79"
+      }
+    }
+  },
+  "agent": {
+    "default_profile": "write",
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-latest"
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4.6",
+      "enable_thinking": true,
+      "effort": "medium"
     },
-    "version": "2"
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "agent_servers": {
+    "codex-acp": {
+      "type": "registry"
+    },
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  "edit_predictions": {
+    "sweep": {
+      "privacy_mode": true
+    },
+    "provider": "zed"
   },
   "vim_mode": false,
   "base_keymap": "VSCode",
-  "theme": "Catppuccin Mocha",
+  "theme": "One Dark Pro",
+  "icon_theme": "Catppuccin Macchiato",
   "telemetry": {
     "metrics": false,
     "diagnostics": true
   },
+  "buffer_font_family": "Maple Mono NF",
   "ui_font_size": 16,
   "buffer_font_size": 13,
   "tab_size": 2,
-  "formatter": "prettier",
-  "terminal": {
-    "font_family": "MesloLGS NF",
-    "font_size": 13
+  "formatter": "language_server",
+  "indent_guides": {
+    "enabled": true,
+    "coloring": "indent_aware",
+    "background_coloring": "indent_aware"
   },
-  "ui_font_family": "MesloLGS NF"
+  "languages": {
+    "JavaScript": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": true,
+        "arrowParens": "always",
+        "bracketSpacing": true,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "printWidth": 80,
+        "jsxSingleQuote": true,
+        "semi": false,
+        "useTabs": false,
+        "tabWidth": 2
+      }
+    },
+    "TypeScript": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": true,
+        "arrowParens": "always",
+        "bracketSpacing": true,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "printWidth": 80,
+        "jsxSingleQuote": true,
+        "semi": false,
+        "useTabs": false,
+        "tabWidth": 2
+      }
+    },
+    "TSX": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": true,
+        "arrowParens": "always",
+        "bracketSpacing": true,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "printWidth": 80,
+        "jsxSingleQuote": true,
+        "semi": false,
+        "useTabs": false,
+        "tabWidth": 2
+      }
+    },
+    "Python": {
+      "inlay_hints": {
+        "enabled": true
+      },
+      "language_servers": [
+        "ruff"
+      ],
+      "tab_size": 4,
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "code_action": "source.organizeImports.ruff"
+        },
+        {
+          "code_action": "source.fixAll.ruff"
+        },
+        {
+          "language_server": {
+            "name": "ruff"
+          }
+        }
+      ]
+    }
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+      "show_commit_summary": true
+    }
+  },
+  "terminal": {
+    "font_family": "Maple Mono NF",
+    "font_size": 13
+  }
 }
