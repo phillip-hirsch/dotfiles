@@ -9,6 +9,14 @@ fi
 # Plugins and completions
 #####################################################################
 
+typeset -U fpath FPATH
+fpath=(
+	/opt/homebrew/share/zsh/site-functions
+	/Applications/Ghostty.app/Contents/Resources/zsh/site-functions
+	/Users/phillip/.docker/completions
+	$fpath
+)
+
 # Show file contents in fzf-tab preview
 # zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 # export LESSOPEN='|~/.lessfilter %s'
@@ -35,28 +43,28 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 # Show Homebrew in fzf-tab preview
 zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
 
-# Homebrew zsh completions
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-# Ghostty zsh completions
-FPATH="/Applications/Ghostty.app/Contents/Resources/zsh/site-functions:${FPATH}"
-
 # Zsh-Syntax-Highlighting Highlighters Directory
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
+
+autoload -Uz compinit
+compinit
+
+# fzf-tab
+source ~/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
 
 #####################################################################
 # User configuration
 #####################################################################
+
+if [[ -n $TTY ]]; then
+	export GPG_TTY="$TTY"
+fi
 
 # Show extra diagnostics on error
 GITSTATUS_LOG_LEVEL=DEBUG
 
 # Colored man pages with bat
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# PostgresSQL 17
-export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
-# export PGDATA="/opt/homebrew/var/postgresql@17"
 
 # fzf
 export FZF_DEFAULT_OPTS=" \
@@ -65,21 +73,6 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
 --color=selected-bg:#45475a \
 --multi"
-
-# EDITOR
-export VISUAL="nvim"
-export EDITOR="$VISUAL"
-
-export XDG_CONFIG_HOME="$HOME/.config"
-export WEZTERM_CONFIG_FILE="$XDG_CONFIG_HOME/wezterm/wezterm.lua"
-export EZA_CONFIG_DIR="$XDG_CONFIG_HOME/eza"
-# export TMUX_PLUGIN_MANAGER_PATH=$XDG_CONFIG_HOME/tmux/plugins/tpm
-# export TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
-
-# Created by `pipx` on 2024-12-17 06:25:11
-export PATH="$PATH:/Users/phillip/.local/bin"
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -96,19 +89,15 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if command -v pyenv >/dev/null 2>&1; then
+	eval "$(pyenv init -)"
+fi
 
-# export PATH="$(brew --prefix)/opt/python@3/libexec/bin:$PATH"
+if command -v jenv >/dev/null 2>&1; then
+	eval "$(jenv init -)"
+fi
 
-# Jenv
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
-# Rustup
-export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+typeset -U path PATH
 
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
@@ -117,10 +106,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # Mise (Ruby - Ruby On Rails)
 eval "$(/Users/phillip/.local/bin/mise activate zsh)"
-
-# fzf-tab
-autoload -U compinit; compinit
-source ~/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
@@ -159,7 +144,6 @@ alias neofetch="neofetch --source /Users/phillip/.config/neofetch/ghost_ascii.tx
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
-HISTDUP=erase
 setopt APPEND_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_SPACE
@@ -178,3 +162,6 @@ bindkey "^[[B" down-line-or-beginning-search # Down
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# opencode
+export PATH=/Users/phillip/.opencode/bin:$PATH
