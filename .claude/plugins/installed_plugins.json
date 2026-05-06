@@ -1,0 +1,96 @@
+{
+  "version": 2,
+  "plugins": {
+    "claude-code-setup@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "/Users/phillip",
+        "installPath": "/Users/phillip/.claude/plugins/cache/claude-plugins-official/claude-code-setup/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-08T18:30:40.765Z",
+        "lastUpdated": "2026-03-16T14:31:42.532Z",
+        "gitCommitSha": "205b6e0b30366a969412d9aab7b99bea99d58db1"
+      },
+      {
+        "scope": "user",
+        "installPath": "/Users/phillip/.claude/plugins/cache/claude-plugins-official/claude-code-setup/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-17T23:36:40.664Z",
+        "lastUpdated": "2026-03-17T23:36:40.664Z",
+        "gitCommitSha": "6b70f99f769f58b9b642dc8a271936b17862cf8c"
+      }
+    ],
+    "frontend-design@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "/Users/phillip",
+        "installPath": "/Users/phillip/.claude/plugins/cache/claude-plugins-official/frontend-design/unknown",
+        "version": "unknown",
+        "installedAt": "2026-03-08T18:34:32.811Z",
+        "lastUpdated": "2026-03-25T23:09:04.400Z",
+        "gitCommitSha": "205b6e0b30366a969412d9aab7b99bea99d58db1"
+      },
+      {
+        "scope": "user",
+        "installPath": "/Users/phillip/.claude/plugins/cache/claude-plugins-official/frontend-design/unknown",
+        "version": "unknown",
+        "installedAt": "2026-03-17T23:35:35.610Z",
+        "lastUpdated": "2026-03-25T23:08:19.959Z",
+        "gitCommitSha": "6b70f99f769f58b9b642dc8a271936b17862cf8c"
+      }
+    ],
+    "claude-md-management@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/phillip/.claude/plugins/cache/claude-plugins-official/claude-md-management/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-17T23:36:21.479Z",
+        "lastUpdated": "2026-03-17T23:36:21.479Z",
+        "gitCommitSha": "6b70f99f769f58b9b642dc8a271936b17862cf8c"
+      }
+    ],
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/phillip/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-17T23:36:03.441Z",
+        "lastUpdated": "2026-03-17T23:36:03.441Z",
+        "gitCommitSha": "6b70f99f769f58b9b642dc8a271936b17862cf8c"
+      }
+    ],
+    "context7@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "/Users/phillip",
+        "installPath": "/Users/phillip/.claude/plugins/cache/claude-plugins-official/context7/unknown",
+        "version": "unknown",
+        "installedAt": "2026-03-17T23:12:11.853Z",
+        "lastUpdated": "2026-03-25T23:09:04.400Z",
+        "gitCommitSha": "6b70f99f769f58b9b642dc8a271936b17862cf8c"
+      }
+    ],
+    "codex@openai-codex": [
+      {
+        "scope": "project",
+        "projectPath": "/Users/phillip",
+        "installPath": "/Users/phillip/.claude/plugins/cache/openai-codex/codex/1.0.4",
+        "version": "1.0.4",
+        "installedAt": "2026-04-06T18:54:29.558Z",
+        "lastUpdated": "2026-05-06T00:32:50.109Z",
+        "gitCommitSha": "8e403f9d4b496b0b0aff50fa3673f889f6a22cb1"
+      }
+    ],
+    "chrome-devtools-mcp@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "/Users/phillip/Developer/dev-portfolio",
+        "installPath": "/Users/phillip/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/latest",
+        "version": "latest",
+        "installedAt": "2026-04-14T01:17:00.507Z",
+        "lastUpdated": "2026-04-14T01:17:00.507Z",
+        "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
+      }
+    ]
+  }
+}

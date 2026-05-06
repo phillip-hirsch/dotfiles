@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "sessions": {
+    "019dc5b8-d201-731b-83ca-f00456ddae96": {
+      "sessionId": "019dc5b8-d201-731b-83ca-f00456ddae96",
+      "cwd": "/Users/phillip/Developer/dev-portfolio",
+      "sessionFile": "/Users/phillip/.pi/agent/sessions/--Users-phillip-Developer-dev-portfolio--/2026-04-25T17-38-37-186Z_019dc5b8-d201-731b-83ca-f00456ddae96.jsonl",
+      "updatedAt": "2026-04-25T17:38:45.650Z"
+    },
+    "019de14c-01a8-702b-b620-a6464a275973": {
+      "sessionId": "019de14c-01a8-702b-b620-a6464a275973",
+      "cwd": "/Users/phillip/.t3/worktrees/stephanie-rohr-website/t3code-21c3af91",
+      "sessionFile": "/Users/phillip/.pi/agent/sessions/--Users-phillip-.t3-worktrees-stephanie-rohr-website-t3code-21c3af91--/2026-05-01T02-09-08-009Z_019de14c-01a8-702b-b620-a6464a275973.jsonl",
+      "updatedAt": "2026-05-01T02:09:08.232Z"
+    }
+  }
+}

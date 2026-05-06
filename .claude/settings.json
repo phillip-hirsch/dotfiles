@@ -1,0 +1,40 @@
+{
+  "effortLevel": "high",
+  "enabledPlugins": {
+    "claude-code-setup@claude-plugins-official": true,
+    "codex@openai-codex": true,
+    "context7@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true
+  },
+  "env": {
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1"
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "repo": "openai/codex-plugin-cc",
+        "source": "github"
+      }
+    }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/bash_command_validator_example.py"
+          }
+        ]
+      }
+    ]
+  },
+  "model": "claude-opus-4-7",
+  "preferredNotifChannel": "ghostty",
+  "statusLine": {
+    "command": "bash ~/.claude/statusline-command.sh",
+    "type": "command"
+  },
+  "verbose": true
+}

@@ -1,0 +1,18 @@
+{
+  "claude-plugins-official": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "installLocation": "/Users/phillip/.claude/plugins/marketplaces/claude-plugins-official",
+    "lastUpdated": "2026-05-06T00:14:17.325Z"
+  },
+  "openai-codex": {
+    "source": {
+      "source": "github",
+      "repo": "openai/codex-plugin-cc"
+    },
+    "installLocation": "/Users/phillip/.claude/plugins/marketplaces/openai-codex",
+    "lastUpdated": "2026-05-06T00:32:50.101Z"
+  }
+}
